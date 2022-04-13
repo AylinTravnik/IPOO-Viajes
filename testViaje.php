@@ -1,5 +1,9 @@
 
-<?php 
+<?php
+//ENTREGA Nº 1: VIAJES
+//ALUMNOS: TRAVNIK ARMITANO, VALERIA AYLIN, FI3522
+//         ZUCCATO, STEFANO, FI3517
+
 include 'Viaje.php'; 
 
 $viaje = null;
