@@ -1,4 +1,8 @@
 <?php 
+//ENTREGA N° 2: VIAJE
+//ALUMNOS: TRAVNIK ARMITANO, VALERIA AYLIN, FI3522
+//         ZUCCATO, STEFANO, FI3517
+
 include 'Viaje.php'; 
 include 'pasajero.php';
 include 'ResponsableV.php';
