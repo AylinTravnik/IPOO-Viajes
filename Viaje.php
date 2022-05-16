@@ -8,6 +8,7 @@ class Viaje
     private $responsable; //es un Objeto Responsable V
     private $importe;
     private $tramos;//ida y vuelta
+    private $cantAsientosDisponibles;
 
 
     //Clase constructora con valores
@@ -20,6 +21,7 @@ class Viaje
         $this->responsable=$esResponsable;
         $this->importe = $esImporte;
         $this->tramos=$esTramos;
+        $this->cantAsientosDisponibles=$capacidad;
     }
     //Get`s de los atributos
     public function getCodigoViaje()
@@ -50,6 +52,12 @@ class Viaje
     {
         return $this->tramos;
     }
+    public function getCantAsientosDisponibles()
+    {
+        return $this->getCantAsientosDisponibles;
+    }
+
+
     //Set`s de los atributos
     public function setCodigoViaje($nuevoCodigo)
     {
@@ -77,7 +85,11 @@ class Viaje
     }
     public function setTramo($nuevoTramo)
     {
-        $this->Tramo = $nuevoTramo;
+        $this->tramos = $nuevoTramo;
+    }
+    public function setCantAsientosDisponibles($nuevaCantidadAsientos)
+    {
+        $this->CantAsientosDisponibles = $nuevaCantidadAsientos;
     }
 
     public function hayPasajesDisponible()
@@ -194,7 +206,17 @@ class Viaje
         $this->setResponsable($responsable);
     }
 
-    public function imprimirPasajeros()
+
+
+    public function actualizadorDisponibilidad()   //actualiza la disponibilidad de asientos.
+    {
+        $cantDePasajeros=count($this->getColeccionPasajeros());
+        $totales= $this->getCantidadPasajeros();
+        $disponibles = $totales - $cantDePasajeros;
+        $this->setCantAsientosDisponibles($disponibles);
+    }
+
+    public function imprimirPasajeros() //Utilizada en el to String para imprimir el listado de pasajeros
     {
         $listaPasajeros=$this->getColeccionPasajeros();
         $largo= count($listaPasajeros);
@@ -206,14 +228,12 @@ class Viaje
 
 
 
-
-
     public function __toString()
     {
         $cadena="Los datos viaje son: \nCodigo: ".$this->getCodigoViaje().",\n Destino: ".$this->getDestino().", \nCantidad maxima de Pasajeros: ".$this->getCantidadPasajeros().
-       "\nResponsable:\n".$this->getResponsable()."\nImporte:\n".$this->getImporte()."\nTramos:\n".$this->getTramos().
+       "\nResponsable:\n".$this->getResponsable()."\nImporte:\n".$this->getImporte()."\nTramos:\n".$this->getTramos()."\nLa cantidad de asientos Disponibles es: \n".$this->getCantAsientosDisponibles().
         "\nPasajeros:\n".$this->imprimirPasajeros();
         return $cadena;
     }
 }
- 
+
