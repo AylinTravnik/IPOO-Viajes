@@ -10,20 +10,20 @@ $opcion = 1;
 
 //DATOS PRE CARGADOS//
  /**********DATOS PRECARGADOS***************/
-     $p1= new Pasajero("Luis", "Saenz", 40123123, 4465444);
+     $p1= new Pasajero("Juan", "Gomez", 40324324, 44544336);
     
-     $p2= new Pasajero("Pepe", "Rodriguez", 30123123, 4465900);
+     $p2= new Pasajero("Mariana", "Rodriguez", 3123456, 4466700);
     
-     $p3= new Pasajero("Luna", "Perez", 20123123, 4465555);
+     $p3= new Pasajero("Lucia", "Martinez", 12345678, 4461111);
     
-     $p4= new Pasajero("Maria", "Saenz", 10123123, 4465444);
+     $p4= new Pasajero("Lila", "Gonzalez", 10123456, 4434455);
      //**********DATOS PRECARGADOS********** */
-    $resp= new ResponsableV("Lucia", "Aguilar", 3453, 4325);
+    $resp= new ResponsableV("Martina", "Riquelme", 3456, 1299);
     
   
     
 
-$viaje= new ViajeAereo("AA1234", "China", 23, [$p1, $p2, $p3, $p4], $resp, 350, "ida", 234, "Primera Clase", "Aerolineas Argentinas", 1);
+$viaje= new ViajeAereo("AA1222", "Peru", 30, [$p1, $p2, $p3, $p4], $resp, 350, "ida", 234, "Primera Clase", "Aerolineas Argentinas", 1);
 
 
 
@@ -109,52 +109,86 @@ while ($opcion != 0) {
 //Funcion Crear viaje, Crea un Objeto de la Clase viaje, con los datos entrados por el usuario
 function crearViaje()
 {
-    $responsable= "";
-    $pasajeros = [];
-    $codigo= readline("Ingrese el codigo de vuelo: ");
-    $destino = readline("Ingrese el destino: ");
-    $capacidad = readline("Ingrese la capacidad del vuelo: ");
-    $importe=0;
-    $tramos =  readline("Ingrese si el viaje es ida, o ida y vuelta: ");
-    $nuevoViaje = new Viaje($codigo, $destino, $capacidad, $pasajeros, $responsable, $importe, $tramos);
-    echo "Se creo correctamente un nuevo viaje.\n ";
+    $op=-1;
+    while ($op != 0) {
+        echo
+             "Seleccione el tipo de Viaje que Desea Crear
+              0- Salir
+              1- Viaje Aereo
+              2- Viaje Terrestre\n";
+
+        $op = readline();
+        switch ($op) {
+            case 1:
+                $responsable= "";
+                $pasajeros = [];
+                $codigo= readline("Ingrese el codigo de vuelo: ");
+                $destino = readline("Ingrese el destino: ");
+                $capacidad = readline("Ingrese la capacidad del vuelo: ");
+                $importe=0;
+                $tramos =  readline("Ingrese si el viaje es ida, o ida y vuelta: ");
+                $numVuelo = readline("Ingrese el numero del vuelo: ");
+                $catAsiento =readline("Ingrese categoria de Asientos del vuelo: ");
+                $nombreAerolinea=readline("Ingrese el nombre de la Aerolinea: ");
+                $cantEscalas=readline("Ingrese la cantidad de escalas del vuelo: ");
+                $nuevoViaje = new ViajeAereo($codigo, $destino, $capacidad, $pasajeros, $responsable, $importe, $tramos, $numVuelo, $catAsiento, $nombreAerolinea, $cantEscalas);
+                echo "Se creo correctamente un nuevo viaje.\n ";
+                
+              
+                break;
+            case 2:
+                $responsable= "";
+                $pasajeros = [];
+                $codigo= readline("Ingrese el codigo de viaje: ");
+                $destino = readline("Ingrese el destino: ");
+                $capacidad = readline("Ingrese la capacidad del viaje: ");
+                $importe=0;
+                $tramos =  readline("Ingrese si el viaje es ida, o ida y vuelta: ");
+                $tipoAsiento = readline("Ingrese el tipo de asiento del viaje: ");
+                
+                $nuevoViaje = new ViajeTerrestre($codigo, $destino, $capacidad, $pasajeros, $responsable, $importe, $tramos, $tipoAsiento);
+                echo "Se creo correctamente un nuevo viaje.\n ";
+              
+                break;
+            }
+    }
     return $nuevoViaje;
 }
 
-function ingresarPasajero()
-{
-    $nombrePasajero = readline("Ingrese Nombre del Pasajero: ");
-    $apellidoPasajero = readline("Ingrese Apellido del pasajero: ");
-    $dniPasajero= readline("Ingrese Dni del pasajero: ");
-    $telefonoPasajero=readline("Ingrese el telefono del pasajero:");
-    $nuevoPasajero= new Pasajero($nombrePasajero, $apellidoPasajero, $dniPasajero, $telefonoPasajero);
-    return $nuevoPasajero;
-}
+        function ingresarPasajero()
+        {
+            $nombrePasajero = readline("Ingrese Nombre del Pasajero: ");
+            $apellidoPasajero = readline("Ingrese Apellido del pasajero: ");
+            $dniPasajero= readline("Ingrese Dni del pasajero: ");
+            $telefonoPasajero=readline("Ingrese el telefono del pasajero:");
+            $nuevoPasajero= new Pasajero($nombrePasajero, $apellidoPasajero, $dniPasajero, $telefonoPasajero);
+            return $nuevoPasajero;
+        }
 
-function agregarPasajero($viaje)
-{
-    $nombrePasajero = readline("Ingrese Nombre del Pasajero: ");
-    $apellidoPasajero = readline("Ingrese Apellido del pasajero: ");
-    $dniPasajero= readline("Ingrese Dni del pasajero: ");
-    $telefonoPasajero=readline("Ingrese el telefono del pasajero:");
-    $nuevoPasajero= new Pasajero($nombrePasajero, $apellidoPasajero, $dniPasajero, $telefonoPasajero);
-    $resultado=$viaje->agregarPasajeroAColeccion($nuevoPasajero);
-    echo $resultado;
-}
-function cambiarPasajero($esElPasajero, $viaje)
-{
-    $op=-1;
-    while ($op != 0) {
-        $esCorrecto=false;
-        echo
+        function agregarPasajero($viaje)
+        {
+            $nombrePasajero = readline("Ingrese Nombre del Pasajero: ");
+            $apellidoPasajero = readline("Ingrese Apellido del pasajero: ");
+            $dniPasajero= readline("Ingrese Dni del pasajero: ");
+            $telefonoPasajero=readline("Ingrese el telefono del pasajero:");
+            $nuevoPasajero= new Pasajero($nombrePasajero, $apellidoPasajero, $dniPasajero, $telefonoPasajero);
+            $resultado=$viaje->agregarPasajeroAColeccion($nuevoPasajero);
+            echo $resultado;
+        }
+        function cambiarPasajero($esElPasajero, $viaje)
+        {
+            $op=-1;
+            while ($op != 0) {
+                $esCorrecto=false;
+                echo
              "Ingrese que desea modificar del pasajero
               0- Salir
               1- Nombre del pasajero
               2- Apellido del pasajero
               3- Telefono\n";
 
-        $op = readline();
-        switch ($op) {
+                $op = readline();
+                switch ($op) {
             case 1 :
                 $datoIngresado=readline("Ingrese nuevo Nombre");//guardamos en $nombrePasajero el Nuevo nombre
                 
@@ -172,27 +206,27 @@ function cambiarPasajero($esElPasajero, $viaje)
                
             default: echo"ERROR Opcion incorrecta. Ingrese 0-1-2-3.\n"; break; //solo permite que usuario ingrese opcion valida
            }
-        $viaje->modificarPasajero($esElPasajero, $op, $datoIngresado);
-    }
-}
-function agregarResponsableV($viaje)
-{
-    $nombreResponsable = readline("Ingrese Nombre del Responsable: ");
-    $apellidoResponsable = readline("Ingrese Apellido del Responsable: ");
-    $numeroLicencia= readline("Ingrese numero de licencia del responsable: ");
-    $numeroEmpleado=readline("Ingrese el numero de Empleado del responsable:");
-    $nuevoResponsable= new ResponsableV($nombreResponsable, $apellidoResponsable, $numeroLicencia, $numeroEmpleado);
-    $viaje->setResponsable($nuevoResponsable);
-}
+                $viaje->modificarPasajero($esElPasajero, $op, $datoIngresado);
+            }
+        }
+        function agregarResponsableV($viaje)
+        {
+            $nombreResponsable = readline("Ingrese Nombre del Responsable: ");
+            $apellidoResponsable = readline("Ingrese Apellido del Responsable: ");
+            $numeroLicencia= readline("Ingrese numero de licencia del responsable: ");
+            $numeroEmpleado=readline("Ingrese el numero de Empleado del responsable:");
+            $nuevoResponsable= new ResponsableV($nombreResponsable, $apellidoResponsable, $numeroLicencia, $numeroEmpleado);
+            $viaje->setResponsable($nuevoResponsable);
+        }
 function menuModificarResponsable($viaje)
 {
     echo
-                 "Ingrese que desea modificar del Responsable
-                  0- Salir
-                  1- Nombre del Responsable
-                  2- Apellido del Responsable
-                  3- Numero Licencia
-                  4- Numero Empleado\n";
+     "Ingrese que desea modificar del Responsable
+    0- Salir
+    1- Nombre del Responsable
+    2- Apellido del Responsable
+    3- Numero Licencia
+    4- Numero Empleado\n";
 
     $op = readline(); //lee que pone usuario
     switch ($op) {
@@ -220,26 +254,23 @@ function menuModificarResponsable($viaje)
                    
     default: echo"ERROR Opcion incorrecta. Ingrese 0-1-2-3-4.\n";
     break;
-
-   
-}
+    }
 }
 
 function menuModificarViaje($viaje)
 {
-    {
-        $opcion = -1;
-        while ($opcion != 0) {
-            echo "
+    $opcion = -1;
+    while ($opcion != 0) {
+        echo "
         \n
         0-Salir 
         1-Modificar Codigo de vuelo 
         2-Modificar Destino
         3-Modificar Cantidad Maxima Pasajeros
         \n";
-            $opcion = readline();
-            echo "\n";
-            switch ($opcion) {
+        $opcion = readline();
+        echo "\n";
+        switch ($opcion) {
             case 0: echo "Saliendo del test"; break;
             case 1: $datoIngresado = readline("Ingrese el nuevo codigo de vuelo: ");
                 $viaje->modificarViaje($opcion, $datoIngresado);
@@ -250,9 +281,8 @@ function menuModificarViaje($viaje)
             case 3:  $datoIngresado = readline("Ingrese la nueva cantidad maxima de pasajeros: ");
                  break;
                  $viaje->modificarViaje($opcion, $datoIngresado);
+            }
     }
-        }
-        }
 }
 
 
